@@ -1,3 +1,5 @@
+# Referenced WACON 2023 Qualification - cry (https://github.com/pcw109550/my-ctf-challenges/tree/master/WACon2023/Qual/cry)
+
 from clib.factor.cyclotomic import factor_cyclotomic_polynomial_prime_power as cppp
 from sage.all import factor, is_prime
 
@@ -11,7 +13,7 @@ ps = []
 qs = []
 rs = []
 for N in Ns:
-    p = cppp(4,2,2,N//2,N,debug=True,threshold=2**20)
+    p = cppp(4,2,2,N//2,N,verbose=True,threshold=2**20)
     assert is_prime(p)
     assert p.bit_length() <= 512
     assert N%p == 0

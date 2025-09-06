@@ -1,7 +1,7 @@
 # Reference:
 # - Factoring with Cyclotomic Polynomials (https://www.ams.org/journals/mcom/1989-52-185/S0025-5718-1989-0947467-1/S0025-5718-1989-0947467-1.pdf)
 
-def factor_cyclotomic_polynomial_prime_power(n,p,k,N,E,trials=-1,proof=True,debug=False,threshold=2**20):
+def factor_cyclotomic_polynomial_prime_power(n,p,k,N,E,trials=-1,proof=True,verbose=False,threshold=2**20):
     """
     Factoring with k-th cyclotomic polynomial where k is a prime power.
     Generalization of <cry> in WACon 2023 Qualification
@@ -47,7 +47,7 @@ def factor_cyclotomic_polynomial_prime_power(n,p,k,N,E,trials=-1,proof=True,debu
     trial_count = 0
     while trial_count != trials:
         f = x**(n//p)+Z.random_element(n//p-1) # random monic polynomial
-        if debug:
+        if verbose:
             print(f"[i] New try with {f = }")
         R = Z.quotient(f.subs(x=x**p))
         t = R.random_element()
@@ -55,10 +55,10 @@ def factor_cyclotomic_polynomial_prime_power(n,p,k,N,E,trials=-1,proof=True,debu
         g = gcd(Integer(v) for i,v in enumerate(list(s)) if gcd(i,p)==1)
         g = gcd(g,N)
         if threshold<g<N:
-            if debug:
+            if verbose:
                 print(f"[+] Succeeded with {g=}")
             return g
-        if debug:
+        if verbose:
             if g < threshold:
                 print(f"[-] Failed by g<threshold")
             if g == N:
