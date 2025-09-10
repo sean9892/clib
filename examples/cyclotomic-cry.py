@@ -13,7 +13,7 @@ ps = []
 qs = []
 rs = []
 for N in Ns:
-    p = cppp(4,2,2,N//2,N,verbose=True,threshold=2**20)
+    p = cppp(4,2,2,N//2,N,verbose=True)
     assert is_prime(p)
     assert p.bit_length() <= 512
     assert N%p == 0
