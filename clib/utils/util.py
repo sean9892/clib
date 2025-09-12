@@ -31,7 +31,7 @@ def _cache(__file__,name,func,forced_renew=None):
 
     if renew_computation:
         f = open(path,"wb")
-        f.write(H.encode())
+        f.write(H)
         value = func()
         pickle.dump(value,f)
         f.close()
