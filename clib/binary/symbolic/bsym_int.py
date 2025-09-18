@@ -52,6 +52,23 @@ class BSymInteger:
         one = self.parent.one()
         return BSymInteger(self.nbits,[one+c for c in self.bits],parent=self.parent)
 
+    # ==== [Equality Operators] ====
+
+    def __eq__(self,other):
+        if isinstance(other,BSymInteger):
+            if self.parent == other.parent:
+                nbits = max(self.nbits,other.nbits)
+                _self = self.resized(nbits)
+                _other = other.resized(nbits)
+                return all(v==w for v,w in zip(_self.bits,_other.bits))
+            else:
+                return False
+        else:
+            return False
+    
+    def __ne__(self,other):
+        return not self.__eq__(other)
+
     # ==== [Binary Operators] ====
 
     def __xor__(self,other):
