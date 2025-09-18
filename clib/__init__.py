@@ -4,7 +4,7 @@ import os
 import sys
 sys.setrecursionlimit(10**9)
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 __all__ = []
 

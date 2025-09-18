@@ -45,10 +45,10 @@ class BSymInteger:
         return self.rol(self.nbits-n)
     
     def monomials(self):
-        s = {}
+        s = set()
         for c in self.bits:
             s |= set(c.monomials())
-        return list(s)
+        return sorted(s)
     
     def coefficients_matrix(self,monomials=None):
         if monomials == None:
@@ -94,7 +94,7 @@ class BSymInteger:
             zero = parent.zero()
             nbits = max(self.nbits,other.nbits)
             res = BSymInteger(nbits,[
-                (self.bits[i] if i<self.nbits else zero) + (self.bits[i] if i<self.nbits else zero)
+                (self.bits[i] if i<self.nbits else zero) + (other.bits[i] if i<other.nbits else zero)
                 for i in range(nbits)
             ],parent=parent)
             return res
@@ -151,7 +151,6 @@ class BSymInteger:
                 for i in range(nbits)
             ],parent=parent)
         elif isinstance(other,CONSTANT_INTEGER_TYPES):
-            assert self.parent == other.parent
             parent = self.parent
             nbits = max(self.nbits,other.bit_length())
             res = BSymInteger.zero(nbits,parent)
