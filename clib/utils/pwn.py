@@ -1,5 +1,3 @@
-from pwn import process, remote
-
 class Challenge:
     def __init__(self,prc_arg,rem_arg,**kwargs):
         self.prc_arg = prc_arg
@@ -21,11 +19,13 @@ class Challenge:
             setattr(self,method,build_f(method))
 
     def local(self):
+        from pwn import process
         if self.current:
             self.current.close()
         self.current = process(self.prc_arg,**(self.kwargs))
 
     def remote(self):
+        from pwn import remote
         if self.current:
             self.current.close()
         self.current = remote(*self.rem_arg,**(self.kwargs))
