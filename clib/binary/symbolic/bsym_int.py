@@ -28,14 +28,7 @@ class BSymInteger:
             parent = bits[0].parent()
         self.parent = parent
 
-        self._generators = None # compute only when it is necessary
-
         self.bits = list(bits)
-        
-    def gens(self):
-        if self._generators == None:
-            self._generators = self.parent.gens()
-        return self._generators
     
     def resized(self,nbits):
         if self.nbits == nbits:
