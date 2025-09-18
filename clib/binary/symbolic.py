@@ -23,11 +23,10 @@ class BSymInteger:
         assert isinstance(bits,Iterable)
         assert nbits > 0
         assert len(bits) == nbits
-
+        self.nbits = nbits
         if parent == None:
             parent = bits[0].parent()
         self.parent = parent
-
         self.bits = list(bits)
     
     def resized(self,nbits):
