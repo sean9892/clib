@@ -121,6 +121,34 @@ class BSymInteger:
         self.nbits = res.nbits
         self.bits = res.bits
 
+    def __and__(self,other):
+        if isinstance(other,BSymInteger):
+            assert self.parent == other.parent
+            parent = self.parent
+            nbits = max(self.nbits,other.nbits)
+            zero = parent.zero()
+            return BSymInteger(nbits,[
+                (self.bits[i] if i<self.nbits else zero) ^ (other.bits[i] if i<other.nbits else zero)
+                for i in range(nbits)
+            ],parent=parent)
+        elif isinstance(other,CONSTANT_INTEGER_TYPES):
+            assert self.parent == other.parent
+            parent = self.parent
+            nbits = max(self.nbits,other.bit_length())
+            res = BSymInteger.zero(nbits,parent)
+            for i in range(min(self.nbits,other.bit_length())):
+                if ((other>>i)&1) == 1:
+                    res.bits[i] = self.bits[i]
+            return res
+        else:
+            raise NotImplementedError
+    def __rand__(self,other):
+        return self.__and__(other)
+    def __iand__(self,other):
+        res = self.__and__(other)
+        self.nbits = res.nbits
+        self.bits = res.bits
+
     def __mul__(self,other):
         if isinstance(other,self.parent.Element):
             return BSymInteger(self.nbits,[other*c for c in self.bits],parent=self.parent)
