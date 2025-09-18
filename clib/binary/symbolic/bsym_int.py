@@ -46,6 +46,12 @@ class BSymInteger:
             zero = self.parent.zero()
             return BSymInteger(nbits,self.bits[:]+[zero for _ in range(nbits-self.nbits)],parent=self.parent)
 
+    def rol(self,n):
+        return (self<<n)^(self>>(self.nbits-n))
+
+    def ror(self,n):
+        return self.rol(self.nbits-n)
+
     # ==== [Unary Operators] ====
 
     def __invert__(self):
