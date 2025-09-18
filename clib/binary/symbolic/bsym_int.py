@@ -62,6 +62,7 @@ class BSymInteger:
         ]
         
         return Matrix(F2,self.nbits,len(monomials),res)
+
     # ==== [Unary Operators] ====
 
     def __invert__(self):
