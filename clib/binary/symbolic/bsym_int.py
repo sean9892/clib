@@ -39,20 +39,20 @@ class BSymInteger:
     
     def resized(self,nbits):
         if self.nbits == nbits:
-            return self
+            return BSymInteger(nbits,self.bits[:],parent=self.parent)
         elif self.nbits < nbits:# shrinking
             return BSymInteger(nbits,self.bits[:nbits],parent=self.parent)
         else:# expanding
             zero = self.parent.zero()
             return BSymInteger(nbits,self.bits[:]+[zero for _ in range(nbits-self.nbits)],parent=self.parent)
 
-    # ==== [Unary Operations] ====
+    # ==== [Unary Operators] ====
 
     def __invert__(self):
         one = self.parent.one()
         return BSymInteger(self.nbits,[one+c for c in self.bits],parent=self.parent)
 
-    # ==== [Binary Operations] ====
+    # ==== [Binary Operators] ====
 
     def __xor__(self,other):
         if isinstance(other,BSymInteger):
