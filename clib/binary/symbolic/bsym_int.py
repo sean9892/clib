@@ -98,6 +98,7 @@ class BSymInteger:
         res = self.__xor__(other)
         self.nbits = res.nbits
         self.bits = res.bits
+        return self
     
     def __lshift__(self,other):
         if isinstance(other,CONSTANT_INTEGER_TYPES):
@@ -109,6 +110,7 @@ class BSymInteger:
         res = self.__ilshift__(other)
         self.nbits = res.nbits
         self.bits = res.bits
+        return self
     
     def __rshift__(self,other):
         if isinstance(other,CONSTANT_INTEGER_TYPES):
@@ -120,6 +122,7 @@ class BSymInteger:
         res = self.__irshift__(other)
         self.nbits = res.nbits
         self.bits = res.bits
+        return self
 
     def __and__(self,other):
         if isinstance(other,BSymInteger):
@@ -148,6 +151,7 @@ class BSymInteger:
         res = self.__and__(other)
         self.nbits = res.nbits
         self.bits = res.bits
+        return self
 
     def __mul__(self,other):
         if isinstance(other,self.parent.Element):
@@ -179,5 +183,6 @@ class BSymInteger:
         res = self.__mul__(other)
         self.nbits = res.nbits
         self.bits = res.bits
+        return self
 
 
