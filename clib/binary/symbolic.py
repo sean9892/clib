@@ -94,7 +94,7 @@ class BSymInteger:
             zero = parent.zero()
             nbits = max(self.nbits,other.nbits)
             res = BSymInteger(nbits,[
-                (self.bits[i] if i<self.nbits else zero) ^ (self.bits[i] if i<self.nbits else zero)
+                (self.bits[i] if i<self.nbits else zero) + (self.bits[i] if i<self.nbits else zero)
                 for i in range(nbits)
             ],parent=parent)
             return res
@@ -103,7 +103,7 @@ class BSymInteger:
             zero = parent.zero()
             nbits = max(self.nbits,other.bit_length())
             res = BSymInteger(nbits,[
-                (self.bits[i] if i<self.nbits else zero) ^ parent((other>>i)&1)
+                (self.bits[i] if i<self.nbits else zero) + parent((other>>i)&1)
                 for i in range(nbits)
             ],parent=parent)
         else:
