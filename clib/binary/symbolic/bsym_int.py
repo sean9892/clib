@@ -1,4 +1,4 @@
-from sage.all import GF, Integer
+from sage.all import GF, Integer, Matrix
 from typing import Iterable
 
 CONSTANT_INTEGER_TYPES = (int,Integer)
@@ -44,7 +44,24 @@ class BSymInteger:
 
     def ror(self,n):
         return self.rol(self.nbits-n)
+    
+    def monomials(self):
+        s = {}
+        for c in self.bits:
+            s |= set(c.monomials())
+        return list(s)
+    
+    def coefficients_matrix(self,monomials=None):
+        if monomials == None:
+            monomials = self.monomials()
+        assert isinstance(monomials,Iterable)
 
+        res = [
+            [self.bits[i][term]for term in monomials]
+            for i in range(self.nbits)
+        ]
+        
+        return Matrix(F2,self.nbits,len(monomials),res)
     # ==== [Unary Operators] ====
 
     def __invert__(self):
